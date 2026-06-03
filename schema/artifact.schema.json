@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AGenNext/projectionbench/schema/artifact.schema.json",
+  "title": "ProjectionBench Artifact",
+  "description": "Base JSON-LD artifact contract for every ProjectionBench node.",
+  "type": "object",
+  "required": ["@context", "@id", "@type", "name", "description"],
+  "properties": {
+    "@context": {
+      "description": "JSON-LD context. Must include schema.org and ProjectionBench pb namespace.",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "object" },
+        { "type": "array" }
+      ]
+    },
+    "@id": {
+      "type": "string",
+      "description": "Stable artifact identifier. Prefer pb: scoped IDs or canonical URLs."
+    },
+    "@type": {
+      "description": "schema.org type plus optional pb extension type.",
+      "oneOf": [
+        { "type": "string" },
+        {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        }
+      ]
+    },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "version": { "type": "string" },
+    "identifier": { "type": "string" },
+    "url": { "type": "string" },
+    "license": { "type": "string" },
+    "creator": {},
+    "publisher": {},
+    "dateCreated": { "type": "string" },
+    "dateModified": { "type": "string" },
+    "isBasedOn": {},
+    "citation": {},
+    "hasPart": {},
+    "isPartOf": {},
+    "sameAs": {},
+    "additionalProperty": {}
+  },
+  "additionalProperties": true
+}
