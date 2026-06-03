@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AGenNext/projectionbench/schema/evaluation-run.schema.json",
+  "title": "ProjectionBench Evaluation Run",
+  "description": "JSON-LD schema for an auditable theory or ProjectionBench evaluation execution trace.",
+  "type": "object",
+  "required": ["@context", "@id", "@type", "name", "object", "agent", "result"],
+  "properties": {
+    "@context": {},
+    "@id": { "type": "string" },
+    "@type": {},
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "startTime": { "type": "string" },
+    "endTime": { "type": "string" },
+    "object": {
+      "description": "Scenario, theory, hypothesis, or artifact being evaluated."
+    },
+    "agent": {
+      "description": "Evaluator agent, model, software, or human evaluator."
+    },
+    "instrument": {
+      "description": "Rubric, metric catalog, prompt, policy, or scoring method used."
+    },
+    "participant": {},
+    "input": {},
+    "output": {},
+    "result": {},
+    "error": {},
+    "trace": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/traceEvent" }
+    },
+    "hasScore": {},
+    "hasReport": {}
+  },
+  "$defs": {
+    "traceEvent": {
+      "type": "object",
+      "required": ["@id", "@type", "name"],
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": {},
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "object": {},
+        "result": {},
+        "additionalProperty": {}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
