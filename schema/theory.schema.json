@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AGenNext/projectionbench/schema/theory.schema.json",
+  "title": "ProjectionBench Theory",
+  "description": "JSON-LD schema for generic theory, hypothesis, claim, evidence, assumption, prediction, and counterclaim artifacts.",
+  "type": "object",
+  "required": ["@context", "@id", "@type", "name", "description", "hasClaim"],
+  "properties": {
+    "@context": {},
+    "@id": { "type": "string" },
+    "@type": {},
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "domain": { "type": "string" },
+    "theorySeed": { "type": "string" },
+    "evaluationGoal": { "type": "string" },
+    "hasClaim": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/claim" }
+    },
+    "hasAssumption": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/assumption" }
+    },
+    "hasPrediction": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/prediction" }
+    },
+    "hasCounterClaim": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/counterClaim" }
+    },
+    "isBasedOn": {},
+    "citation": {},
+    "hasScore": {}
+  },
+  "$defs": {
+    "claim": {
+      "type": "object",
+      "required": ["@id", "@type", "claimReviewed"],
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": {},
+        "claimReviewed": { "type": "string" },
+        "isBasedOn": {},
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "stage": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "assumption": {
+      "type": "object",
+      "required": ["@id", "@type", "text"],
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": {},
+        "text": { "type": "string" },
+        "risk": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "prediction": {
+      "type": "object",
+      "required": ["@id", "@type", "text"],
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": {},
+        "text": { "type": "string" },
+        "testable": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "counterClaim": {
+      "type": "object",
+      "required": ["@id", "@type", "claimReviewed"],
+      "properties": {
+        "@id": { "type": "string" },
+        "@type": {},
+        "claimReviewed": { "type": "string" },
+        "contradicts": {}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
