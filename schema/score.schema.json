@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AGenNext/projectionbench/schema/score.schema.json",
+  "title": "ProjectionBench Score",
+  "description": "JSON-LD schema for claim, theory, scenario, and evaluation run scores.",
+  "type": "object",
+  "required": ["@context", "@id", "@type", "ratingValue", "bestRating", "worstRating", "additionalProperty"],
+  "properties": {
+    "@context": {},
+    "@id": { "type": "string" },
+    "@type": {},
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "ratingValue": { "type": "number", "minimum": 0, "maximum": 1 },
+    "bestRating": { "type": "number" },
+    "worstRating": { "type": "number" },
+    "about": {},
+    "additionalProperty": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/metric" }
+    }
+  },
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "required": ["@type", "name", "value"],
+      "properties": {
+        "@type": {},
+        "name": { "type": "string" },
+        "value": { "type": "number", "minimum": 0, "maximum": 1 },
+        "description": { "type": "string" },
+        "unitText": { "type": "string" },
+        "weight": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
