@@ -1,0 +1,47 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "pb": "https://github.com/AGenNext/projectionbench/ns#"
+  },
+  "@id": "pb:registry/profiles",
+  "@type": ["schema:DefinedTermSet", "pb:ProfileRegistry"],
+  "name": "ProjectionBench Profile Registry",
+  "description": "Registry of benchmark profiles supported by the generic theory evaluation agent.",
+  "hasDefinedTerm": [
+    {
+      "@id": "pb:profile/projectionbench",
+      "@type": ["schema:DefinedTerm", "pb:BenchmarkProfile"],
+      "name": "ProjectionBench",
+      "description": "Scientific hypothesis generation under progressive information disclosure, grounded in arXiv:2605.30284.",
+      "termCode": "projectionbench"
+    },
+    {
+      "@id": "pb:profile/generic-theory",
+      "@type": ["schema:DefinedTerm", "pb:BenchmarkProfile"],
+      "name": "Generic Theory Evaluation",
+      "description": "Generic profile for evaluating theories, frameworks, claim systems, strategies, and operating models.",
+      "termCode": "generic-theory"
+    },
+    {
+      "@id": "pb:profile/business-theory",
+      "@type": ["schema:DefinedTerm", "pb:BenchmarkProfile"],
+      "name": "Business Theory",
+      "description": "Profile for evaluating business theses, product strategies, market hypotheses, and operating models.",
+      "termCode": "business-theory"
+    },
+    {
+      "@id": "pb:profile/governance-theory",
+      "@type": ["schema:DefinedTerm", "pb:BenchmarkProfile"],
+      "name": "Governance Theory",
+      "description": "Profile for evaluating policies, controls, compliance models, and governance frameworks.",
+      "termCode": "governance-theory"
+    },
+    {
+      "@id": "pb:profile/architecture-theory",
+      "@type": ["schema:DefinedTerm", "pb:BenchmarkProfile"],
+      "name": "Architecture Theory",
+      "description": "Profile for evaluating software, data, cloud, and agent architecture theories.",
+      "termCode": "architecture-theory"
+    }
+  ]
+}
