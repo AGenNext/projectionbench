@@ -44,7 +44,7 @@
         "novelty": 0.10,
         "consistency": 0.15
       },
-      "value": 0.876071
+      "value": 0.969643
     },
     "trust_score": {
       "formula": "average(provenance, reproducibility, explainability, verification, confidence)",
@@ -59,7 +59,7 @@
     },
     "overall_score": {
       "formula": "0.80 * benchmark_score + 0.20 * trust_score",
-      "value": 0.875857
+      "value": 0.950714
     },
     "rating_band": {
       "A+": ">= 0.95",
@@ -71,14 +71,14 @@
     }
   },
   "result": {
-    "benchmark_score": 0.876071,
+    "benchmark_score": 0.969643,
     "trust_score": 0.875,
-    "overall_score": 0.875857,
-    "rating": "B",
-    "certification_status": "verified"
+    "overall_score": 0.950714,
+    "rating": "A+",
+    "certification_status": "certified_excellent"
   },
   "interpretation": {
-    "summary": "The baseline agent receives a B / verified result on the example biomaterial scenario.",
+    "summary": "The baseline agent receives an A+ / certified_excellent result on the example biomaterial scenario.",
     "note": "This fixture documents the expected shape of calculations and results. Exact values may change when the evaluator, scenario, or matching threshold changes."
   }
 }
