@@ -1,0 +1,68 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "pb": "https://github.com/AGenNext/projectionbench/ns#"
+  },
+  "@id": "pb:registry/metrics",
+  "@type": ["schema:Dataset", "pb:MetricRegistry"],
+  "name": "ProjectionBench Metric Registry",
+  "description": "Canonical metric catalog for generic theory evaluation and the ProjectionBench profile.",
+  "hasPart": [
+    {
+      "@id": "pb:metric/claim-precision",
+      "@type": ["schema:PropertyValue", "pb:MetricDefinition"],
+      "name": "claim_precision",
+      "description": "Fraction of generated claims that align with reference claims.",
+      "unitText": "normalized-score",
+      "valueReference": "matched_generated_claims / generated_claims"
+    },
+    {
+      "@id": "pb:metric/claim-recall",
+      "@type": ["schema:PropertyValue", "pb:MetricDefinition"],
+      "name": "claim_recall",
+      "description": "Fraction of reference claims covered by generated claims.",
+      "unitText": "normalized-score",
+      "valueReference": "matched_reference_claims / reference_claims"
+    },
+    {
+      "@id": "pb:metric/claim-f1",
+      "@type": ["schema:PropertyValue", "pb:MetricDefinition"],
+      "name": "claim_f1",
+      "description": "Harmonic mean of claim precision and claim recall.",
+      "unitText": "normalized-score",
+      "valueReference": "2 * precision * recall / (precision + recall)"
+    },
+    {
+      "@id": "pb:metric/stage-improvement",
+      "@type": ["schema:PropertyValue", "pb:MetricDefinition"],
+      "name": "stage_improvement",
+      "description": "Whether generated hypotheses improve as more information is disclosed.",
+      "unitText": "normalized-score",
+      "valueReference": "normalized(final_stage_f1 - initial_stage_f1)"
+    },
+    {
+      "@id": "pb:metric/groundedness",
+      "@type": ["schema:PropertyValue", "pb:MetricDefinition"],
+      "name": "groundedness",
+      "description": "Fraction of generated claims grounded in disclosed evidence.",
+      "unitText": "normalized-score",
+      "valueReference": "grounded_generated_claims / generated_claims"
+    },
+    {
+      "@id": "pb:metric/novelty",
+      "@type": ["schema:PropertyValue", "pb:MetricDefinition"],
+      "name": "novelty",
+      "description": "Fraction of generated claims that are non-generic and domain-specific.",
+      "unitText": "normalized-score",
+      "valueReference": "non_generic_claims / generated_claims"
+    },
+    {
+      "@id": "pb:metric/consistency",
+      "@type": ["schema:PropertyValue", "pb:MetricDefinition"],
+      "name": "consistency",
+      "description": "Degree to which generated claims avoid internal contradiction.",
+      "unitText": "normalized-score",
+      "valueReference": "1 - contradiction_rate"
+    }
+  ]
+}
