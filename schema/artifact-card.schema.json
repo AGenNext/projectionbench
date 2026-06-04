@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AGenNext/projectionbench/schema/artifact-card.schema.json",
+  "title": "ProjectionBench Artifact Card",
+  "description": "Governance card for any ProjectionBench artifact, including scenarios, metrics, profiles, runs, reports, and scores.",
+  "type": "object",
+  "required": ["@context", "@id", "@type", "name", "artifactType", "artifact", "version", "status"],
+  "properties": {
+    "@context": {},
+    "@id": { "type": "string" },
+    "@type": {},
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "artifactType": { "type": "string" },
+    "artifact": {},
+    "version": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["draft", "active", "deprecated", "archived", "rejected"]
+    },
+    "owner": {},
+    "source": {},
+    "license": { "type": "string" },
+    "trustScore": { "type": "number", "minimum": 0, "maximum": 1 },
+    "verificationState": {
+      "type": "string",
+      "enum": ["unverified", "self_verified", "peer_reviewed", "certified"]
+    },
+    "approvalState": {
+      "type": "string",
+      "enum": ["not_required", "pending", "approved", "rejected"]
+    },
+    "dateCreated": { "type": "string" },
+    "dateModified": { "type": "string" },
+    "relationships": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "additionalProperties": true
+}
