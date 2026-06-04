@@ -1,0 +1,71 @@
+{
+  "@context": {
+    "schema": "https://schema.org/",
+    "pb": "https://github.com/AGenNext/projectionbench/ns#"
+  },
+  "@id": "pb:scenario/example-biomaterial",
+  "@type": ["schema:Dataset", "pb:BenchmarkScenario"],
+  "name": "Example Biomaterial Progressive Disclosure Scenario",
+  "domain": "scientific-hypothesis-generation",
+  "theory_seed": "Can a bio-inspired hierarchical polymer composite improve toughness and fatigue resistance under cyclic loading?",
+  "evaluation_goal": "Evaluate whether a theory agent can generate and revise scientific claims as biomaterial evidence is progressively disclosed.",
+  "isBasedOn": {
+    "@id": "pb:source/arxiv-2605-30284",
+    "@type": ["schema:ScholarlyArticle", "pb:SourcePaper"],
+    "name": "ProjectionBench: Evaluating Scientific Hypothesis Generation in LLMs Under Progressive Information Disclosure",
+    "identifier": "arXiv:2605.30284",
+    "url": "https://arxiv.org/abs/2605.30284"
+  },
+  "disclosure_stages": [
+    {
+      "@id": "pb:stage/example-biomaterial/1",
+      "@type": ["schema:CreativeWork", "pb:DisclosureStage"],
+      "name": "Topic and research question",
+      "position": 1,
+      "content": "A polymer composite is inspired by biological hierarchical structures. The research question asks whether hierarchy can improve toughness and fatigue resistance."
+    },
+    {
+      "@id": "pb:stage/example-biomaterial/2",
+      "@type": ["schema:CreativeWork", "pb:DisclosureStage"],
+      "name": "Background disclosure",
+      "position": 2,
+      "content": "Hierarchical materials distribute stress across multiple length scales. Interfaces can deflect cracks and dissipate energy during deformation."
+    },
+    {
+      "@id": "pb:stage/example-biomaterial/3",
+      "@type": ["schema:CreativeWork", "pb:DisclosureStage"],
+      "name": "Methods disclosure",
+      "position": 3,
+      "content": "The composite is fabricated with aligned nanoscale reinforcement and microscale layered architecture. Cyclic loading tests measure fatigue resistance and crack propagation."
+    },
+    {
+      "@id": "pb:stage/example-biomaterial/4",
+      "@type": ["schema:CreativeWork", "pb:DisclosureStage"],
+      "name": "Results disclosure",
+      "position": 4,
+      "content": "Results show improved toughness, slower crack propagation, and higher fatigue resistance compared with a non-hierarchical polymer control."
+    }
+  ],
+  "reference_claims": [
+    {
+      "@id": "pb:reference-claim/example-biomaterial/1",
+      "@type": ["schema:Claim", "pb:Claim"],
+      "claimReviewed": "Hierarchical structure improves toughness in the polymer composite."
+    },
+    {
+      "@id": "pb:reference-claim/example-biomaterial/2",
+      "@type": ["schema:Claim", "pb:Claim"],
+      "claimReviewed": "Interfaces deflect cracks and dissipate energy during deformation."
+    },
+    {
+      "@id": "pb:reference-claim/example-biomaterial/3",
+      "@type": ["schema:Claim", "pb:Claim"],
+      "claimReviewed": "The hierarchical composite slows crack propagation under cyclic loading."
+    },
+    {
+      "@id": "pb:reference-claim/example-biomaterial/4",
+      "@type": ["schema:Claim", "pb:Claim"],
+      "claimReviewed": "The hierarchical composite has higher fatigue resistance than a non-hierarchical polymer control."
+    }
+  ]
+}
