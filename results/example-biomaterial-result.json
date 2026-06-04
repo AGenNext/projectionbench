@@ -1,0 +1,84 @@
+{
+  "scenario": "pb:scenario/example-biomaterial",
+  "profile": "ProjectionBench",
+  "agent": "Baseline Theory Agent",
+  "calculation": {
+    "raw_metric_scores": {
+      "claim_precision": {
+        "formula": "matched_generated_claims / generated_claims",
+        "value": 0.75
+      },
+      "claim_recall": {
+        "formula": "matched_reference_claims / reference_claims",
+        "value": 1.0
+      },
+      "claim_f1": {
+        "formula": "2 * precision * recall / (precision + recall)",
+        "value": 0.857143
+      },
+      "stage_improvement": {
+        "formula": "normalized(final_stage_f1 - initial_stage_f1)",
+        "value": 0.5
+      },
+      "groundedness": {
+        "formula": "grounded_generated_claims / generated_claims",
+        "value": 1.0
+      },
+      "novelty": {
+        "formula": "non_generic_claims / generated_claims",
+        "value": 1.0
+      },
+      "consistency": {
+        "formula": "1 - contradiction_rate",
+        "value": 1.0
+      }
+    },
+    "profile_weighted_benchmark_score": {
+      "formula": "weighted_average(profile_metrics)",
+      "weights": {
+        "claim_precision": 0.15,
+        "claim_recall": 0.15,
+        "claim_f1": 0.30,
+        "stage_improvement": 0.10,
+        "groundedness": 0.15,
+        "novelty": 0.10,
+        "consistency": 0.15
+      },
+      "value": 0.876071
+    },
+    "trust_score": {
+      "formula": "average(provenance, reproducibility, explainability, verification, confidence)",
+      "components": {
+        "provenance": 1.0,
+        "reproducibility": 1.0,
+        "explainability": 1.0,
+        "verification": 0.5,
+        "confidence": 0.875
+      },
+      "value": 0.875
+    },
+    "overall_score": {
+      "formula": "0.80 * benchmark_score + 0.20 * trust_score",
+      "value": 0.875857
+    },
+    "rating_band": {
+      "A+": ">= 0.95",
+      "A": ">= 0.90",
+      "B": ">= 0.80",
+      "C": ">= 0.70",
+      "D": ">= 0.60",
+      "F": "< 0.60"
+    }
+  },
+  "result": {
+    "benchmark_score": 0.876071,
+    "trust_score": 0.875,
+    "overall_score": 0.875857,
+    "rating": "B",
+    "certification_status": "verified"
+  },
+  "interpretation": {
+    "summary": "The baseline agent receives a B / verified result on the example biomaterial scenario.",
+    "note": "This fixture documents the expected shape of calculations and results. Exact values may change when the evaluator, scenario, or matching threshold changes."
+  }
+}
