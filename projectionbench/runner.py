@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from projectionbench.baseline import BaselineTheoryAgent
+from projectionbench.certification import CertificationEngine
 from projectionbench.evaluator import Evaluator
 from projectionbench.models import JSONLD_CONTEXT, Scenario
 from projectionbench.reconciliation import Reconciler
@@ -19,6 +20,7 @@ class BenchmarkRunner:
         self.reconciler = Reconciler(self.evaluator)
         self.trust_engine = TrustEngine()
         self.score_engine = ScoreEngine()
+        self.certification_engine = CertificationEngine()
         self.report_engine = ReportEngine()
 
     def run_file(self, scenario_path: str | Path) -> dict[str, Any]:
@@ -40,6 +42,7 @@ class BenchmarkRunner:
             deterministic=True,
         )
         final_score = self.score_engine.finalize(score, trust)
+        certificate = self.certification_engine.certify(final_score)
         report = self.report_engine.build(score, reconciliation, trust)
 
         score_summary = {
@@ -71,6 +74,13 @@ class BenchmarkRunner:
                 "verification": trust.verification,
                 "confidence": trust.confidence,
             },
+            "certificateSummary": {
+                "subject": certificate.subject,
+                "capability": certificate.capability,
+                "profile": certificate.profile,
+                "rating": certificate.rating,
+                "status": certificate.status,
+            },
             "result": {
                 "hypotheses": [hypothesis.to_jsonld() for hypothesis in hypotheses],
                 "score": score.to_jsonld(),
@@ -78,7 +88,9 @@ class BenchmarkRunner:
                 "reconciliation": reconciliation.to_jsonld(),
                 "trust": trust.to_jsonld(),
                 "report": report.to_jsonld(),
+                "certificate": certificate.to_jsonld(),
             },
             "hasScore": final_score.to_jsonld(),
             "hasReport": report.to_jsonld(),
+            "hasCertificate": certificate.to_jsonld(),
         }
