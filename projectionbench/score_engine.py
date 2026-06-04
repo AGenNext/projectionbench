@@ -50,18 +50,20 @@ class FinalScore:
 class ScoreEngine:
     """Combines benchmark metrics and trust into a final score.
 
-    The evaluator computes benchmark quality. The score engine applies final
-    aggregation, rating bands, and certification status.
+    The evaluator computes raw metric values. The score engine applies profile
+    weights, trust weighting, rating bands, and certification status.
     """
 
-    def __init__(self, benchmark_weight: float = 0.80, trust_weight: float = 0.20):
+    def __init__(self, benchmark_weight: float = 0.80, trust_weight: float = 0.20, metric_weights: dict[str, float] | None = None):
         self.benchmark_weight = benchmark_weight
         self.trust_weight = trust_weight
+        self.metric_weights = metric_weights
 
     def finalize(self, score: Score, trust: TrustResult) -> FinalScore:
-        benchmark_score = score.overall
+        benchmark_score = self._weighted_benchmark_score(score)
         trust_score = trust.trust_score
-        overall = (benchmark_score * self.benchmark_weight) + (trust_score * self.trust_weight)
+        total_weight = self.benchmark_weight + self.trust_weight or 1.0
+        overall = ((benchmark_score * self.benchmark_weight) + (trust_score * self.trust_weight)) / total_weight
         rating, status = self._band(overall)
         metrics = {metric.name: round(metric.value, 6) for metric in score.metrics}
         return FinalScore(
@@ -72,6 +74,18 @@ class ScoreEngine:
             certification_status=status,
             metrics=metrics,
         )
+
+    def _weighted_benchmark_score(self, score: Score) -> float:
+        if not self.metric_weights:
+            return score.overall
+        metric_values = {metric.name: metric.value for metric in score.metrics}
+        total = 0.0
+        used_weight = 0.0
+        for name, weight in self.metric_weights.items():
+            if name in metric_values:
+                total += metric_values[name] * weight
+                used_weight += weight
+        return total / used_weight if used_weight else score.overall
 
     def _band(self, value: float) -> tuple[str, str]:
         for threshold, rating, status in RATING_BANDS:
