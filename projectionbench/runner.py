@@ -8,6 +8,7 @@ from projectionbench.baseline import BaselineTheoryAgent
 from projectionbench.evaluator import Evaluator
 from projectionbench.models import JSONLD_CONTEXT, Scenario
 from projectionbench.reconciliation import Reconciler
+from projectionbench.score_engine import ScoreEngine
 from projectionbench.trust import ReportEngine, TrustEngine
 
 
@@ -17,6 +18,7 @@ class BenchmarkRunner:
         self.evaluator = evaluator or Evaluator()
         self.reconciler = Reconciler(self.evaluator)
         self.trust_engine = TrustEngine()
+        self.score_engine = ScoreEngine()
         self.report_engine = ReportEngine()
 
     def run_file(self, scenario_path: str | Path) -> dict[str, Any]:
@@ -37,11 +39,16 @@ class BenchmarkRunner:
             has_reconciliation=True,
             deterministic=True,
         )
+        final_score = self.score_engine.finalize(score, trust)
         report = self.report_engine.build(score, reconciliation, trust)
 
         score_summary = {
-            "overall": round(score.overall, 6),
-            "metrics": {metric.name: round(metric.value, 6) for metric in score.metrics},
+            "benchmark_score": round(final_score.benchmark_score, 6),
+            "trust_score": round(final_score.trust_score, 6),
+            "overall_score": round(final_score.overall_score, 6),
+            "rating": final_score.rating,
+            "certification_status": final_score.certification_status,
+            "metrics": final_score.metrics,
         }
 
         return {
@@ -67,10 +74,11 @@ class BenchmarkRunner:
             "result": {
                 "hypotheses": [hypothesis.to_jsonld() for hypothesis in hypotheses],
                 "score": score.to_jsonld(),
+                "finalScore": final_score.to_jsonld(),
                 "reconciliation": reconciliation.to_jsonld(),
                 "trust": trust.to_jsonld(),
                 "report": report.to_jsonld(),
             },
-            "hasScore": score.to_jsonld(),
+            "hasScore": final_score.to_jsonld(),
             "hasReport": report.to_jsonld(),
         }
