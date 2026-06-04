@@ -8,18 +8,24 @@ from projectionbench.baseline import BaselineTheoryAgent
 from projectionbench.certification import CertificationEngine
 from projectionbench.evaluator import Evaluator
 from projectionbench.models import JSONLD_CONTEXT, Scenario
+from projectionbench.profile_engine import ProfileEngine
 from projectionbench.reconciliation import Reconciler
 from projectionbench.score_engine import ScoreEngine
 from projectionbench.trust import ReportEngine, TrustEngine
 
 
 class BenchmarkRunner:
-    def __init__(self, agent: BaselineTheoryAgent | None = None, evaluator: Evaluator | None = None):
+    def __init__(self, agent: BaselineTheoryAgent | None = None, evaluator: Evaluator | None = None, profile_name: str = "projectionbench"):
         self.agent = agent or BaselineTheoryAgent()
         self.evaluator = evaluator or Evaluator()
+        self.profile = ProfileEngine().get(profile_name)
         self.reconciler = Reconciler(self.evaluator)
         self.trust_engine = TrustEngine()
-        self.score_engine = ScoreEngine()
+        self.score_engine = ScoreEngine(
+            benchmark_weight=self.profile.benchmark_weight,
+            trust_weight=self.profile.trust_weight,
+            metric_weights=self.profile.metric_weights,
+        )
         self.certification_engine = CertificationEngine()
         self.report_engine = ReportEngine()
 
@@ -42,7 +48,7 @@ class BenchmarkRunner:
             deterministic=True,
         )
         final_score = self.score_engine.finalize(score, trust)
-        certificate = self.certification_engine.certify(final_score)
+        certificate = self.certification_engine.certify(final_score, profile=self.profile.name)
         report = self.report_engine.build(score, reconciliation, trust)
 
         score_summary = {
@@ -59,6 +65,7 @@ class BenchmarkRunner:
             "@id": f"pb:evaluation-run/{scenario.id.split('/')[-1]}",
             "@type": ["schema:Action", "pb:EvaluationRun"],
             "name": f"Evaluation run for {scenario.name}",
+            "profile": self.profile.to_jsonld(),
             "object": scenario.to_jsonld(),
             "agent": {
                 "@id": "pb:agent/baseline-theory-agent",
