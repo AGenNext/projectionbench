@@ -77,8 +77,38 @@
     "rating": "A+",
     "certification_status": "certified_excellent"
   },
+  "insights": [
+    "The baseline agent strongly matches the reference claims on the example biomaterial scenario.",
+    "The high score is driven by perfect claim recall, groundedness, novelty, and consistency.",
+    "The example scenario is simple and the final disclosure stage directly states several reference outcomes, so the result should be treated as a fixture validation rather than a competitive benchmark result."
+  ],
+  "gaps": [
+    "Only one scenario is currently evaluated, so the result is not statistically meaningful.",
+    "The baseline agent uses deterministic sentence extraction, not true generative scientific hypothesis reasoning.",
+    "The result is manually maintained as a fixture and should be replaced by CI-generated benchmark artifacts.",
+    "The result is not signed or externally verified."
+  ],
+  "recommendations": [
+    "Generate result artifacts automatically from the runner and commit them under results/latest/.",
+    "Add at least 10 scenarios across multiple domains and difficulty levels before claiming benchmark validity.",
+    "Add artifact signing using GitHub artifact attestations or Sigstore before marking results as verified.",
+    "Separate fixture results from validated benchmark leaderboard results."
+  ],
+  "provenance": {
+    "source_paper": "https://arxiv.org/abs/2605.30284",
+    "scenario_file": "scenarios/example-biomaterial.json",
+    "result_type": "fixture",
+    "generated_by": "manual fixture update",
+    "profile": "ProjectionBench",
+    "agent": "Baseline Theory Agent"
+  },
+  "signature": {
+    "status": "unsigned",
+    "verification": "not_verified",
+    "reason": "No GPG, Sigstore, or GitHub artifact attestation is attached to this result fixture yet."
+  },
   "interpretation": {
-    "summary": "The baseline agent receives an A+ / certified_excellent result on the example biomaterial scenario.",
-    "note": "This fixture documents the expected shape of calculations and results. Exact values may change when the evaluator, scenario, or matching threshold changes."
+    "summary": "The baseline agent receives an A+ / certified_excellent result on the example biomaterial fixture scenario.",
+    "note": "This fixture documents the expected shape of calculations, results, insights, gaps, recommendations, provenance, and signature status. Exact values may change when the evaluator, scenario, or matching threshold changes."
   }
 }
